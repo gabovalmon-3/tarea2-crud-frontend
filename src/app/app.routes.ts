@@ -7,6 +7,7 @@ import { IRoleType } from './interfaces';
 import { AccessDeniedComponent } from './pages/access-denied/access-denied.component';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { SigUpComponent } from './pages/auth/sign-up/signup.component';
+import { CategoriasComponent } from './pages/categorias/categorias.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { UsersComponent } from './pages/users/users.component';
 
@@ -40,7 +41,7 @@ export const routes: Routes = [
         redirectTo: 'dashboard',
         pathMatch: 'full',
       },
-  {
+      {
         path: 'dashboard',
         component: DashboardComponent,
         data: {
@@ -49,6 +50,18 @@ export const routes: Routes = [
             IRoleType.user
           ],
           name: 'Dashboard',
+          showInSidebar: true
+        }
+      },
+         {
+        path: 'categorias',
+        component: CategoriasComponent,
+        data: {
+          authorities: [
+            IRoleType.superAdmin,
+            IRoleType.user
+          ],
+          name: 'Categorías',
           showInSidebar: true
         }
       },

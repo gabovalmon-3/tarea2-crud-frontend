@@ -1,0 +1,30 @@
+<div class="row p-4">
+  <div class="col-12">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h2 class="mb-0">Categorías</h2>
+      @if (authService.isSuperAdmin()) {
+        <button (click)="openCreateModal()" type="button" class="btn btn-primary">
+          <i class="fas fa-plus me-1"></i> Nueva categoría
+        </button>
+      }
+    </div>
+  </div>
+
+  <div class="col-12">
+    <app-categoria-list
+      [categorias]="categoriaService.categorias$()"
+      (callModalAction)="openEditModal($event)"
+      (callDeleteAction)="deleteCategoria($event)"
+    />
+  </div>
+</div>
+
+<ng-template #categoriaModal>
+  <app-modal [hideFooter]="true">
+    <app-categoria-form
+      [categoriaForm]="categoriaForm"
+      (callSaveMethod)="saveCategoria($event)"
+      (callUpdateMethod)="updateCategoria($event)"
+    />
+  </app-modal>
+</ng-template>

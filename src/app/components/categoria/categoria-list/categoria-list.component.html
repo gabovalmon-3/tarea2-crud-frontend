@@ -1,0 +1,41 @@
+<div class="table-container table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Descripción</th>
+        @if (authService.isSuperAdmin()) {
+          <th class="text-center" scope="col">Acciones</th>
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of categorias; track item.id) {
+        <tr>
+          <th scope="row">{{item.id}}</th>
+          <td>{{item.nombre}}</td>
+          <td>{{item.descripcion}}</td>
+          @if (authService.isSuperAdmin()) {
+            <td class="text-center">
+              <button (click)="callModalAction.emit(item)" class="btn btn-warning me-2" type="button">
+                <i class="fas fa-pen"></i>
+              </button>
+              <button (click)="callDeleteAction.emit(item)" class="btn btn-danger" type="button">
+                <i class="fas fa-trash"></i>
+              </button>
+            </td>
+          }
+        </tr>
+      } @empty {
+        <tr>
+          <td [attr.colspan]="authService.isSuperAdmin() ? 4 : 3">
+            <div class="d-flex justify-content-center align-items-center w-100">
+              <p class="mb-0">No hay categorías registradas</p>
+            </div>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>
