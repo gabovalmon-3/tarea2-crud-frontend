@@ -1,30 +1,23 @@
-import { Component, OnInit, inject } from "@angular/core";
-import { Router, RouterLink } from "@angular/router";
+import { Component, inject } from "@angular/core";
+import { Router } from "@angular/router";
 import { AuthService } from "../../services/auth.service";
 
 @Component({
   selector: "app-my-account",
   standalone: true,
-  imports: [
-    RouterLink
-  ],
+  imports: [],
   templateUrl: "./my-account.component.html",
 })
-export class MyAccountComponent implements OnInit {
+export class MyAccountComponent {
   public userName: string = '';
-  private service = inject(AuthService);
+  private authService: AuthService = inject(AuthService);
 
   constructor(public router: Router) {
-    let user = localStorage.getItem('auth_user');
-    if(user) {
-      this.userName = JSON.parse(user)?.name;
-    } 
+    this.userName = this.authService.getUser().username ?? '';
   }
 
-  ngOnInit() {}
-
   logout() {
-    this.service.logout();
+    this.authService.logout();
     this.router.navigateByUrl('/login');
   }
 }

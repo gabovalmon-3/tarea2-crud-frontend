@@ -1,5 +1,3 @@
-// Autenticación
-
 export interface ILoginResponse {
   token: string;
   tipo: string;
@@ -11,8 +9,6 @@ export enum IRoleType {
   user = 'USER',
   superAdmin = 'SUPER-ADMIN-ROLE'
 }
-
-// Entidades
 
 export interface IUser {
   id?: number;
@@ -37,8 +33,6 @@ export interface IProducto {
   categoria?: ICategoria;
 }
 
-// Respuestas del backend
-
 export interface IResponse<T> {
   message: string;
   data: T;
@@ -53,8 +47,6 @@ export interface ISearch {
   totalElements?: number;
   totalPages?: number;
 }
-
-// Mensajes de interfaz
 
 export interface IFeedBackMessage {
   type?: IFeedbackStatus;
