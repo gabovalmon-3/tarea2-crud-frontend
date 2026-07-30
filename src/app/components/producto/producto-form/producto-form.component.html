@@ -1,0 +1,61 @@
+<form [formGroup]="productoForm" class="row">
+  <div>
+    <h2 class="mb-3">
+      {{ productoForm.controls['id'].value ? 'Editar producto' : 'Nuevo producto' }}
+    </h2>
+  </div>
+
+  <div class="col-12 mb-2">
+    <label class="mb-1" for="nombre">Nombre*</label>
+    <input id="nombre" formControlName="nombre" type="text" class="form-control">
+    @if (productoForm.controls['nombre'].invalid && (productoForm.controls['nombre'].dirty || productoForm.controls['nombre'].touched)) {
+      <p class="text-danger my-1">El nombre es obligatorio y no puede pasar de 150 caracteres</p>
+    }
+  </div>
+
+  <div class="col-12 mb-2">
+    <label class="mb-1" for="descripcion">Descripción*</label>
+    <textarea id="descripcion" formControlName="descripcion" rows="3" class="form-control"></textarea>
+    @if (productoForm.controls['descripcion'].invalid && (productoForm.controls['descripcion'].dirty || productoForm.controls['descripcion'].touched)) {
+      <p class="text-danger my-1">La descripción es obligatoria y no puede pasar de 500 caracteres</p>
+    }
+  </div>
+
+  <div class="col-6 mb-2">
+    <label class="mb-1" for="precio">Precio*</label>
+    <input id="precio" formControlName="precio" type="number" step="0.01" min="0.01" class="form-control">
+    @if (productoForm.controls['precio'].invalid && (productoForm.controls['precio'].dirty || productoForm.controls['precio'].touched)) {
+      <p class="text-danger my-1">El precio es obligatorio y debe ser mayor que cero</p>
+    }
+  </div>
+
+  <div class="col-6 mb-2">
+    <label class="mb-1" for="cantidadStock">Cantidad en stock*</label>
+    <input id="cantidadStock" formControlName="cantidadStock" type="number" step="1" min="0" class="form-control">
+    @if (productoForm.controls['cantidadStock'].invalid && (productoForm.controls['cantidadStock'].dirty || productoForm.controls['cantidadStock'].touched)) {
+      <p class="text-danger my-1">La cantidad es obligatoria y no puede ser negativa</p>
+    }
+  </div>
+
+  <div class="col-12 mb-2">
+    <label class="mb-1" for="categoriaId">Categoría*</label>
+    <select id="categoriaId" formControlName="categoriaId" class="form-select">
+      <option value="">Seleccione una categoría</option>
+      @for (categoria of categorias; track categoria.id) {
+        <option [value]="categoria.id">{{categoria.nombre}}</option>
+      }
+    </select>
+    @if (productoForm.controls['categoriaId'].invalid && (productoForm.controls['categoriaId'].dirty || productoForm.controls['categoriaId'].touched)) {
+      <p class="text-danger my-1">Debe seleccionar una categoría</p>
+    }
+    @if (categorias.length === 0) {
+      <p class="text-warning my-1">No hay categorías registradas. Cree una categoría primero.</p>
+    }
+  </div>
+
+  <div class="d-flex justify-content-end mt-3">
+    <button (click)="callSave()" [disabled]="productoForm.invalid" class="btn btn-primary" type="button">
+      {{ productoForm.controls['id'].value ? 'Actualizar' : 'Guardar' }}
+    </button>
+  </div>
+</form>

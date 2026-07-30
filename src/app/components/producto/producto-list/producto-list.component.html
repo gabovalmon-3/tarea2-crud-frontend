@@ -1,0 +1,47 @@
+<div class="table-container table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Descripción</th>
+        <th class="text-end" scope="col">Precio</th>
+        <th class="text-end" scope="col">Stock</th>
+        <th scope="col">Categoría</th>
+        @if (authService.isSuperAdmin()) {
+          <th class="text-center" scope="col">Acciones</th>
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @for (item of productos; track item.id) {
+        <tr>
+          <th scope="row">{{item.id}}</th>
+          <td>{{item.nombre}}</td>
+          <td>{{item.descripcion}}</td>
+          <td class="text-end">{{item.precio | currency:'CRC':'symbol-narrow':'1.2-2'}}</td>
+          <td class="text-end">{{item.cantidadStock}}</td>
+          <td>{{item.categoria?.nombre}}</td>
+          @if (authService.isSuperAdmin()) {
+            <td class="text-center">
+              <button (click)="callModalAction.emit(item)" class="btn btn-warning me-2" type="button">
+                <i class="fas fa-pen"></i>
+              </button>
+              <button (click)="callDeleteAction.emit(item)" class="btn btn-danger" type="button">
+                <i class="fas fa-trash"></i>
+              </button>
+            </td>
+          }
+        </tr>
+      } @empty {
+        <tr>
+          <td [attr.colspan]="authService.isSuperAdmin() ? 7 : 6">
+            <div class="d-flex justify-content-center align-items-center w-100">
+              <p class="mb-0">No hay productos registrados</p>
+            </div>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</div>

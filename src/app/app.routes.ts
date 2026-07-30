@@ -9,8 +9,8 @@ import { LoginComponent } from './pages/auth/login/login.component';
 import { SigUpComponent } from './pages/auth/sign-up/signup.component';
 import { CategoriasComponent } from './pages/categorias/categorias.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { ProductosComponent } from './pages/productos/productos.component';
 import { UsersComponent } from './pages/users/users.component';
-
 export const routes: Routes = [
   {
     path: 'login',
@@ -62,6 +62,18 @@ export const routes: Routes = [
             IRoleType.user
           ],
           name: 'Categorías',
+          showInSidebar: true
+        }
+      },
+         {
+        path: 'productos',
+        component: ProductosComponent,
+        data: {
+          authorities: [
+            IRoleType.superAdmin,
+            IRoleType.user
+          ],
+          name: 'Productos',
           showInSidebar: true
         }
       },
