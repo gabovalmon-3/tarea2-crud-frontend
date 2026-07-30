@@ -1,7 +1,7 @@
 import { Injectable, inject } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from "@angular/router";
-import { AuthService } from "../services/auth.service";
 import { IRoleType } from "../interfaces";
+import { AuthService } from "../services/auth.service";
 
 @Injectable({
   providedIn: 'root',
@@ -14,8 +14,7 @@ export class AdminRoleGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    const hasRole = this.authService.hasRole(IRoleType.admin) || this.authService.hasRole(IRoleType.superAdmin);
-
+const hasRole = this.authService.hasRole(IRoleType.superAdmin);
     if (!hasRole) {
       this.router.navigate(['access-denied']);
       return false;

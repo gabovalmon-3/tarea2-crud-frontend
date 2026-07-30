@@ -13,31 +13,34 @@ import { AuthService } from '../../../services/auth.service';
 })
 export class LoginComponent {
   public loginError!: string;
-  @ViewChild('email') emailModel!: NgModel;
+  @ViewChild('username') usernameModel!: NgModel;
   @ViewChild('password') passwordModel!: NgModel;
 
-  public loginForm: { email: string; password: string } = {
-    email: '',
+  public loginForm: { username: string; password: string } = {
+    username: '',
     password: '',
   };
 
   constructor(
-    private router: Router, 
+    private router: Router,
     private authService: AuthService
   ) {}
 
   public handleLogin(event: Event) {
     event.preventDefault();
-    if (!this.emailModel.valid) {
-      this.emailModel.control.markAsTouched();
+
+    if (!this.usernameModel.valid) {
+      this.usernameModel.control.markAsTouched();
     }
     if (!this.passwordModel.valid) {
       this.passwordModel.control.markAsTouched();
     }
-    if (this.emailModel.valid && this.passwordModel.valid) {
+
+    if (this.usernameModel.valid && this.passwordModel.valid) {
       this.authService.login(this.loginForm).subscribe({
         next: () => this.router.navigateByUrl('/app/dashboard'),
-        error: (err: any) => (this.loginError = err.error.description),
+        error: (err: any) =>
+          (this.loginError = err.error?.mensaje ?? 'No se pudo iniciar sesión'),
       });
     }
   }

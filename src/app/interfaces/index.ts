@@ -1,70 +1,55 @@
+// Autenticación
+
 export interface ILoginResponse {
-  accessToken: string;
-  expiresIn: number
-}
-
-export interface IResponse<T> {
-  data: T;
-  message: string,
-  meta: T;
-}
-
-export interface IUser {
-  id?: number;
-  name?: string;
-  lastname?: string;
-  email?: string;
-  password?: string;
-  active?: boolean;
-  createdAt?: string;
-  updatedAt?: string;
-  authorities?: IAuthority[];
-  role?: IRole
-}
-
-export interface IAuthority {
-  authority: string;
-}
-
-export interface IFeedBackMessage {
-  type?: IFeedbackStatus;
-  message?: string;
-}
-
-export enum IFeedbackStatus {
-  success = "SUCCESS",
-  error = "ERROR",
-  default = ''
+  token: string;
+  tipo: string;
+  username: string;
+  roles: string[];
 }
 
 export enum IRoleType {
-  admin = "ROLE_ADMIN",
-  user = "ROLE_USER",
-  superAdmin = 'ROLE_SUPER_ADMIN'
+  user = 'USER',
+  superAdmin = 'SUPER-ADMIN-ROLE'
 }
 
-export interface IRole {
-  createdAt: string;
-  description: string;
-  id: number;
-  name : string;
-  updatedAt: string;
-}
+// Entidades
 
-export interface IGame {
+export interface IUser {
   id?: number;
+  username?: string;
+  password?: string;
+  activo?: boolean;
+  roles?: string[];
+
+  // TODO: eliminar cuando se reescriba la página de usuarios
   name?: string;
-  imgURL?: string;
-  status?: string;
-  description?: string;
+  lastname?: string;
+  email?: string;
   createdAt?: string;
   updatedAt?: string;
 }
 
-export interface IOrder {
+export interface ICategoria {
   id?: number;
-  description?: string;
-  total?: number;
+  nombre?: string;
+  descripcion?: string;
+}
+
+export interface IProducto {
+  id?: number;
+  nombre?: string;
+  descripcion?: string;
+  precio?: number;
+  cantidadStock?: number;
+  categoria?: ICategoria;
+}
+
+// Respuestas del backend
+
+export interface IResponse<T> {
+  message: string;
+  data: T;
+  meta: ISearch;
 }
 
 export interface ISearch {
@@ -73,34 +58,18 @@ export interface ISearch {
   pageNumber?: number;
   pageSize?: number;
   totalElements?: number;
-  totalPages?:number;
+  totalPages?: number;
 }
 
-export interface IMovie {
-  id?: number;
-  title?: string;
-  director?: string;
-  description?: string;
+// Mensajes de interfaz
+
+export interface IFeedBackMessage {
+  type?: IFeedbackStatus;
+  message?: string;
 }
 
-export interface IPreferenceList {
-  id?: number;
-  name?: string;
-  movies?: IMovie[];
-}
-
-export interface ISportTeam {
-  id?: number;
-  name?: string;
-  players?: IPlayer[];
-  stadium?: string;
-  founded?: number;
-  coach?: string;
-  isInClubsWorldCup?: boolean;
-  teamLogo?: string;
-}
-
-export interface IPlayer {
-  id?: number;
-  name?: string;
+export enum IFeedbackStatus {
+  success = 'SUCCESS',
+  error = 'ERROR',
+  default = ''
 }

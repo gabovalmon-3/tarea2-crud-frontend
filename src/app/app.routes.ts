@@ -40,12 +40,11 @@ export const routes: Routes = [
         redirectTo: 'dashboard',
         pathMatch: 'full',
       },
-      {
+  {
         path: 'dashboard',
         component: DashboardComponent,
         data: {
           authorities: [
-            IRoleType.admin,
             IRoleType.superAdmin,
             IRoleType.user
           ],
@@ -59,7 +58,6 @@ export const routes: Routes = [
         canActivate: [AdminRoleGuard],
         data: {
           authorities: [
-            IRoleType.admin,
             IRoleType.superAdmin
           ],
           name: 'Usuarios',
