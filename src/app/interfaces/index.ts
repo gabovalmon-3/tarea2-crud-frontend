@@ -20,13 +20,6 @@ export interface IUser {
   password?: string;
   activo?: boolean;
   roles?: string[];
-
-  // TODO: eliminar cuando se reescriba la página de usuarios
-  name?: string;
-  lastname?: string;
-  email?: string;
-  createdAt?: string;
-  updatedAt?: string;
 }
 
 export interface ICategoria {
